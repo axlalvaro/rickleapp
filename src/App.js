@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './css/app.scss'
+import Main from './Main'
+import Detail from './Detail'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component
+{
+    constructor(props)
+    {
+        super(props);
+        
+        this.state =
+        {
+            selectedCharacter: null
+        }
+    }
+    
+    render()
+    {
+        return (
+            <div className="App">
+            
+                <section className="left">
+                    <div className="top">
+                        <div className="rick"></div>
+                        <div className="title">RICKLEAPP</div>
+                    </div>
+                    <div className="morty"></div>
+                </section>
+                
+                <Main onCharacterSelected={this.onCharacterSelected.bind(this)} />
+                <Detail character={this.state.selectedCharacter} />
+                
+            </div>
+        );
+    }
+    
+    onCharacterSelected(character)
+    {
+        this.setState({ selectedCharacter: character });
+    }
 }
-
-export default App;
