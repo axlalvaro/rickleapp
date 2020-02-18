@@ -122,7 +122,7 @@ section.main
         flex-direction: column;
         background: $purpleColor;
         border-radius: 32px 0 0 32px;
-        padding-top: 32px;
+        padding-top: 36px;
         overflow: hidden;
         height: 100%;
     }
@@ -132,8 +132,21 @@ section.main
         display: flex;
         align-items: center;
         padding-left: 32px;
-        padding-bottom: 16px;
+        padding-bottom: 12px;
         flex-shrink: 0;
+        border-bottom: 1px solid transparent;
+        
+        transition: 0.2s ease;
+        
+        &.showBorder
+        {
+            border-color: rgba(255,255,255,0.08);
+        }
+        
+        .spinner
+        {
+            transform: translate(0,2px);
+        }
     }
     
     h1

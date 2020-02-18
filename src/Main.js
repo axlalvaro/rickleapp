@@ -7,6 +7,7 @@ import BottomScrollListener from 'react-bottom-scroll-listener'
 export default class Main extends Component
 {
     page = 1;
+    charactersRef = null;
     
     constructor(props)
     {
@@ -16,21 +17,28 @@ export default class Main extends Component
         {
             loading: false,
             characters: [],
-            selectedCharacterId: null
+            selectedCharacterId: null,
+            showHeaderBorder: false
         }
     }
     componentDidMount()
-    {
-        this.getCharacters()
+    {    
+        this.getCharacters();
+        
+        document.querySelector('.characters').addEventListener('scroll', this.onCharactersScroll.bind(this));
     }
     
     render()
     {
         return (
             <section className="main">
-                <div class="card">
-                    <div className="header">
+                <div className="card">
+                    <div className={classnames('header', { 'showBorder': this.state.showHeaderBorder })}>
                         <h1>Characters</h1>
+                        <Loader
+                            className="spinner"
+                            isLoading={this.state.loading && this.state.characters.length > 0}
+                        />
                     </div>
                     
                     {
@@ -40,14 +48,18 @@ export default class Main extends Component
                         </div>
                     }
                     
-                    <BottomScrollListener onBottom={this.onBottom.bind(this)} offset={800}>
-                    { scrollRef => (
-                        <div className="characters" ref={scrollRef}>
-                        {
-                            this.state.characters.map((character, i) => this.renderCharacterRow(character, i))
-                        }
-                        </div>
-                    )}
+                    <BottomScrollListener onBottom={this.onBottom.bind(this)} offset={800} debounce={0}>
+                    { scrollRef => 
+                    {
+                        this.charactersRef = scrollRef;
+                        return (
+                            <div className="characters" ref={scrollRef}>
+                            {
+                                this.state.characters.map((character, i) => this.renderCharacterRow(character, i))
+                            }
+                            </div>
+                        )
+                    }}
                     </BottomScrollListener>
                 </div>
             </section>
@@ -90,25 +102,35 @@ export default class Main extends Component
         this.page++;
         this.getCharacters();
     }
-    
-    async getCharacters()
+    onCharactersScroll(event)
     {
-        this.setState({ loading: true });
+        let scrollTop = document.querySelector('.characters').scrollTop;
         
-        try
+        if (scrollTop > 0 && !this.state.showHeaderBorder)
+            this.setState({ showHeaderBorder: true });
+            
+        if (scrollTop <= 0 && this.state.showHeaderBorder)
+            this.setState({ showHeaderBorder: false });
+    }
+    
+    getCharacters()
+    {
+        this.setState({ loading: true }, () =>
         {
-            let res = await API.getCharacters(this.page);
-            
-            console.log(res);
-            
-            this.setState({ loading: false, characters: [...this.state.characters, ...res.data.results] });
-            
-            if (this.page === 1)
-                this.onClickCharacter(res.data.results[0]);
-        }
-        catch(error)
-        {
-            console.log(error);
-        }
+            API.getCharacters(this.page)
+            .then(res =>
+            {
+                console.log(res);
+                
+                this.setState({ loading: false, characters: [...this.state.characters, ...res.data.results] });
+                
+                if (this.page === 1)
+                    this.onClickCharacter(res.data.results[0]);
+            })
+            .catch(error =>
+            {
+                console.log(error);
+            });
+        });
     }
 }

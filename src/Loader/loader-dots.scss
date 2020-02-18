@@ -1,7 +1,6 @@
 .spinnerloaderContainer
 {
-    display: inline-block;
-    text-align: center;
+    display: flex;
 
     &.fullWidth {
         width: 100%;
