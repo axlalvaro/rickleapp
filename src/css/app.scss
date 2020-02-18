@@ -122,7 +122,7 @@ section.main
         flex-direction: column;
         background: $purpleColor;
         border-radius: 32px 0 0 32px;
-        padding-top: 36px;
+        padding-top: 40px;
         overflow: hidden;
         height: 100%;
     }
@@ -132,7 +132,7 @@ section.main
         display: flex;
         align-items: center;
         padding-left: 32px;
-        padding-bottom: 12px;
+        padding-bottom: 8px;
         flex-shrink: 0;
         border-bottom: 1px solid transparent;
         
@@ -171,6 +171,7 @@ section.main
     .characters
     {
         overflow: scroll;
+        padding-top: 12px;
         padding-bottom: 40px;
     
         .character
@@ -259,7 +260,7 @@ section.detail
         border-radius: 32px 0 0 32px;
         overflow: scroll;
         overflow-x: hidden;
-        padding: 36px 136px 80px 36px;
+        padding: 40px 136px 80px 40px;
         height: 100%;
     }
     

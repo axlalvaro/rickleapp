@@ -104,12 +104,14 @@ export default class Main extends Component
     }
     onCharactersScroll(event)
     {
-        let scrollTop = document.querySelector('.characters').scrollTop;
+        let div = document.querySelector('.characters');
+        let scrollTop = div.scrollTop;
+        let paddingTop = parseInt(window.getComputedStyle(div, null).getPropertyValue('padding-top'));
         
-        if (scrollTop > 0 && !this.state.showHeaderBorder)
+        if (scrollTop > paddingTop && !this.state.showHeaderBorder)
             this.setState({ showHeaderBorder: true });
             
-        if (scrollTop <= 0 && this.state.showHeaderBorder)
+        if (scrollTop <= paddingTop && this.state.showHeaderBorder)
             this.setState({ showHeaderBorder: false });
     }
     
