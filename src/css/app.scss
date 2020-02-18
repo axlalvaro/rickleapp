@@ -11,17 +11,16 @@
     margin: 0;
 }
 
-:global {
-  .hidden {
+.hidden
+{
     opacity: 0 !important;
     visibility: hidden;
-  }
 }
 
 html, body, #root, .App
 {
     height: 100%;
-    background: $greenColor;
+    background: $blackColor;
 }
 
 body
@@ -60,6 +59,7 @@ section.detail
 
 section.left
 {
+    background: $greenColor;
     width: 80px;
     padding: 20px 0;
     display: flex;
@@ -111,14 +111,21 @@ section.left
 
 section.main
 {
-    display: flex;
-    flex-direction: column;
-    background: $purpleColor;
-    border-radius: 32px 0 0 32px;
-    padding-top: 32px;
-    overflow: hidden;
+    background: $greenColor;
     width: 400px;
     min-width: 400px;
+    overflow: hidden;
+    
+    .card
+    {
+        display: flex;
+        flex-direction: column;
+        background: $purpleColor;
+        border-radius: 32px 0 0 32px;
+        padding-top: 32px;
+        overflow: hidden;
+        height: 100%;
+    }
     
     .header
     {
@@ -338,16 +345,5 @@ section.detail
     {
         width: 520px;
         min-width: 520px;
-    }
-    section.detail
-    {
-        max-width: 550px;
-    }
-}
-@media (min-width: 1150px)
-{
-    section.detail .giantName
-    {
-        position: absolute;
     }
 }

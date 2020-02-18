@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import API from './API'
 import Loader from './Loader'
 import classnames from 'classnames'
-import BottomScrollListener from 'react-bottom-scroll-listener';
+import BottomScrollListener from 'react-bottom-scroll-listener'
 
 export default class Main extends Component
 {
@@ -28,26 +28,28 @@ export default class Main extends Component
     {
         return (
             <section className="main">
-                <div className="header">
-                    <h1>Characters</h1>
-                </div>
-                
-                {
-                    this.state.loading && this.state.characters.length === 0 &&
-                    <div className="spinnerContainer">
-                        <Loader large isLoading />
+                <div class="card">
+                    <div className="header">
+                        <h1>Characters</h1>
                     </div>
-                }
-                
-                <BottomScrollListener onBottom={this.onBottom.bind(this)} offset={800}>
-                { scrollRef => (
-                    <div className="characters" ref={scrollRef}>
+                    
                     {
-                        this.state.characters.map((character, i) => this.renderCharacterRow(character, i))
+                        this.state.loading && this.state.characters.length === 0 &&
+                        <div className="spinnerContainer">
+                            <Loader large isLoading />
+                        </div>
                     }
-                    </div>
-                )}
-                </BottomScrollListener>
+                    
+                    <BottomScrollListener onBottom={this.onBottom.bind(this)} offset={800}>
+                    { scrollRef => (
+                        <div className="characters" ref={scrollRef}>
+                        {
+                            this.state.characters.map((character, i) => this.renderCharacterRow(character, i))
+                        }
+                        </div>
+                    )}
+                    </BottomScrollListener>
+                </div>
             </section>
         );
     }
