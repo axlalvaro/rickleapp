@@ -297,6 +297,8 @@ section.detail
     
     .image
     {
+        position: relative;
+        z-index: 1;
         width: 164px;
         height: 164px;
         background-position: center;

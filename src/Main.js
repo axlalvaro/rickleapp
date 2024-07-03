@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import API from './API'
 import Loader from './Loader'
 import classnames from 'classnames'
-import BottomScrollListener from 'react-bottom-scroll-listener'
+import { BottomScrollListener } from 'react-bottom-scroll-listener'
 
 export default class Main extends Component
 {
